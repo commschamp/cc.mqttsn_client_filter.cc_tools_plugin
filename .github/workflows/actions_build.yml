@@ -5,8 +5,8 @@ on: [push]
 env:
   COMMS_TAG: v5.2.3
   CC_TOOLS_QT_TAG: v5.3
-  CC_MQTTSN_GENERATED_TAG: v2.7
-  CC_MQTTSN_LIBS_TAG: v2.0
+  CC_MQTTSN_GENERATED_TAG: v2.8
+  CC_MQTTSN_LIBS_TAG: develop
 
 jobs:
 

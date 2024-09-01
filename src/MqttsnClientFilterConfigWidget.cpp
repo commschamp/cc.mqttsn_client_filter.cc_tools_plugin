@@ -117,6 +117,7 @@ void MqttsnClientFilterConfigWidget::refresh()
     m_ui.m_pubQosSpinBox->setValue(m_filter.config().m_pubQos);
 
     refreshSubscribes();
+    refreshPubTopic();
 }
 
 void MqttsnClientFilterConfigWidget::retryPeriodUpdated(int val)
@@ -152,11 +153,13 @@ void MqttsnClientFilterConfigWidget::forcedCleanSessionUpdated(int val)
 void MqttsnClientFilterConfigWidget::pubTopicUpdated(const QString& val)
 {
     m_filter.config().m_pubTopic = val;
+    refreshPubTopic();
 }
 
 void MqttsnClientFilterConfigWidget::pubTopicIdUpdated(int val)
 {
     m_filter.config().m_pubTopicId = static_cast<unsigned>(val);
+    refreshPubTopic();
 }
 
 void MqttsnClientFilterConfigWidget::pubQosUpdated(int val)
@@ -170,6 +173,28 @@ void MqttsnClientFilterConfigWidget::addSubscribe()
     subs.resize(subs.size() + 1U);
     addSubscribeWidget(subs.back());
     refreshSubscribes();
+}
+
+void MqttsnClientFilterConfigWidget::refreshPubTopic()
+{
+    bool useTopic = (!m_ui.m_pubTopicLineEdit->text().isEmpty());
+    if (useTopic) {
+        m_ui.m_pubTopicLineEdit->setEnabled(true);
+        m_ui.m_pubTopicIdSpinBox->setValue(0);
+        m_ui.m_pubTopicIdSpinBox->setEnabled(false);
+        return;
+    }
+
+    bool useTopicId = (m_ui.m_pubTopicIdSpinBox->value() != 0);
+    if (useTopicId) {
+        m_ui.m_pubTopicIdSpinBox->setEnabled(true);
+        m_ui.m_pubTopicLineEdit->clear();
+        m_ui.m_pubTopicLineEdit->setEnabled(false);
+        return;
+    }
+
+    m_ui.m_pubTopicLineEdit->setEnabled(true);
+    m_ui.m_pubTopicIdSpinBox->setEnabled(true);
 }
 
 void MqttsnClientFilterConfigWidget::refreshSubscribes()

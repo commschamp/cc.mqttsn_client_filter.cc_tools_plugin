@@ -31,11 +31,19 @@ MqttsnClientFilterSubConfigWidget::MqttsnClientFilterSubConfigWidget(MqttsnClien
     m_ui.setupUi(this);
 
     m_ui.m_topicLineEdit->setText(m_config.m_topic);
+    if (m_config.m_topic.isEmpty()) {
+        m_ui.m_topicIdSpinBox->setValue(m_config.m_topicId);
+    }
     m_ui.m_maxQosSpinBox->setValue(m_config.m_maxQos);
+    refresh();
 
     connect(
         m_ui.m_topicLineEdit, &QLineEdit::textChanged,
         this, &MqttsnClientFilterSubConfigWidget::topicUpdated);   
+
+    connect(
+        m_ui.m_topicIdSpinBox, qOverload<int>(&QSpinBox::valueChanged),
+        this, &MqttsnClientFilterSubConfigWidget::topicIdUpdated);          
 
     connect(
         m_ui.m_maxQosSpinBox, qOverload<int>(&QSpinBox::valueChanged),
@@ -50,6 +58,14 @@ void MqttsnClientFilterSubConfigWidget::topicUpdated(const QString& val)
 {
     m_config.m_topic = val;
     m_filter.forceCleanSession();
+    refresh();
+}
+
+void MqttsnClientFilterSubConfigWidget::topicIdUpdated(int val)
+{
+    m_config.m_topicId = val;
+    m_filter.forceCleanSession();
+    refresh();
 }
 
 void MqttsnClientFilterSubConfigWidget::maxQosUpdated(int val)
@@ -78,6 +94,28 @@ void MqttsnClientFilterSubConfigWidget::delClicked([[maybe_unused]] bool checked
     m_filter.forceCleanSession();
     blockSignals(true);
     deleteLater();
+}
+
+void MqttsnClientFilterSubConfigWidget::refresh()
+{
+    bool useTopic = (!m_ui.m_topicLineEdit->text().isEmpty());
+    if (useTopic) {
+        m_ui.m_topicLineEdit->setEnabled(true);
+        m_ui.m_topicIdSpinBox->setValue(0);
+        m_ui.m_topicIdSpinBox->setEnabled(false);
+        return;
+    }
+
+    bool useTopicId = (m_ui.m_topicIdSpinBox->value() != 0);
+    if (useTopicId) {
+        m_ui.m_topicIdSpinBox->setEnabled(true);
+        m_ui.m_topicLineEdit->clear();
+        m_ui.m_topicLineEdit->setEnabled(false);
+        return;
+    }
+
+    m_ui.m_topicLineEdit->setEnabled(true);
+    m_ui.m_topicIdSpinBox->setEnabled(true);
 }
 
 

@@ -52,6 +52,7 @@ private slots:
 private:
     using SubConfig = MqttsnClientFilter::SubConfig;
 
+    void refreshPubTopic();
     void refreshSubscribes();
     void addSubscribeWidget(SubConfig& config);    
 

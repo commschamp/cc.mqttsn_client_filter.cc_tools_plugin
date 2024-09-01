@@ -390,8 +390,13 @@ QList<cc_tools_qt::DataInfoPtr> MqttsnClientFilter::sendDataImpl(cc_tools_qt::Da
     }
 
     auto& props = dataPtr->m_extraProperties;
-    std::string topic = getOutgoingTopic(props, m_config.m_pubTopic);
-    auto topicId = getOutgoingTopicId(props, m_config.m_pubTopicId);
+    std::string topic = getOutgoingTopic(props, QString());
+    auto topicId = getOutgoingTopicId(props, 0U);
+
+    if (topic.empty() && (topicId == 0U)) {
+        topic = getOutgoingTopic(props, m_config.m_pubTopic);
+        topicId = getOutgoingTopicId(props, m_config.m_pubTopicId);        
+    }
     
     auto qos = getOutgoingQos(props, m_config.m_pubQos);
     props[qosProp()] = qos;
@@ -410,7 +415,7 @@ QList<cc_tools_qt::DataInfoPtr> MqttsnClientFilter::sendDataImpl(cc_tools_qt::Da
         config.m_topic = topic.c_str();
         props[topicProp()] = QString::fromStdString(topic);
     }
-    else {
+    else if (topicId != 0U) {
         config.m_topicId = static_cast<decltype(config.m_topicId)>(topicId);
         props[topicIdProp()] = topicId;
     }
@@ -480,6 +485,9 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
             auto var = props.value(*p);
             if ((var.isValid()) && (var.canConvert<QString>())) {
                 m_config.m_pubTopic = var.value<QString>();
+                if (!m_config.m_pubTopic.isEmpty()) {
+                    m_config.m_pubTopicId = 0;
+                }
                 updated = true;
             }
         }  
@@ -494,6 +502,9 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
             auto var = props.value(*p);
             if ((var.isValid()) && (var.canConvert<unsigned>())) {
                 m_config.m_pubTopicId = var.value<unsigned>();
+                if (m_config.m_pubTopicId == 0) {
+                    m_config.m_pubTopic.clear();
+                }
                 updated = true;
             }
         }  
@@ -819,7 +830,10 @@ void MqttsnClientFilter::connectCompleteInternal(CC_MqttsnAsyncOpStatus status, 
 
         auto config = CC_MqttsnSubscribeConfig();
         ::cc_mqttsn_client_subscribe_init_config(&config);
-        config.m_topic = topicStr.c_str();
+        if (!topicStr.empty()) {
+            config.m_topic = topicStr.c_str();
+        }
+        config.m_topicId = static_cast<decltype(config.m_topicId)>(sub.m_topicId);
         config.m_qos = static_cast<decltype(config.m_qos)>(sub.m_maxQos);
 
         auto ec = cc_mqttsn_client_subscribe(m_client.get(), &config, &MqttsnClientFilter::subscribeCompleteCb, this);

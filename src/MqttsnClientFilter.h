@@ -46,6 +46,7 @@ public:
     struct SubConfig
     {
         QString m_topic;
+        int m_topicId = 0;
         int m_maxQos = 2;
     };
 

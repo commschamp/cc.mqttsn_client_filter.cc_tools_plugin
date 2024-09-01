@@ -41,6 +41,7 @@ const QString PubTopicSubKey("pub_topic");
 const QString PubTopicIdSubKey("pub_topic_id");
 const QString PubQosSubKey("pub_qos");
 const QString SubTopicSubKey("sub_topic");
+const QString SubTopicIdSubKey("sub_topic_id");
 const QString SubQosSubKey("sub_qos");
 const QString SubscribesSubKey("subscribes");
 
@@ -59,6 +60,7 @@ QVariantMap toVariantMap(const MqttsnClientFilter::SubConfig& config)
 {
     QVariantMap result;
     result[SubTopicSubKey] = config.m_topic;
+    result[SubTopicIdSubKey] = config.m_topicId;
     result[SubQosSubKey] = config.m_maxQos;
     return result;
 }
@@ -66,6 +68,7 @@ QVariantMap toVariantMap(const MqttsnClientFilter::SubConfig& config)
 void fromVariantMap(const QVariantMap& map, MqttsnClientFilter::SubConfig& config)
 {
     getFromConfigMap(map, SubTopicSubKey, config.m_topic);
+    getFromConfigMap(map, SubTopicIdSubKey, config.m_topicId);
     getFromConfigMap(map, SubQosSubKey, config.m_maxQos);
 }
 

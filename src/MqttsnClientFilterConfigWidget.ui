@@ -223,7 +223,7 @@
      <item>
       <widget class="QSpinBox" name="m_pubTopicIdSpinBox">
        <property name="maximum">
-        <number>2</number>
+        <number>65535</number>
        </property>
       </widget>
      </item>

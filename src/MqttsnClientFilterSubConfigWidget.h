@@ -41,10 +41,13 @@ public:
 
 private slots:
     void topicUpdated(const QString& val);
+    void topicIdUpdated(int val);
     void maxQosUpdated(int val);
     void delClicked(bool checked);
 
 private:
+    void refresh();
+
     MqttsnClientFilter& m_filter;
     SubConfig& m_config;
     Ui::MqttsnClientFilterSubConfigWidget m_ui;

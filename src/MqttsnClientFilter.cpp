@@ -721,7 +721,7 @@ void MqttsnClientFilter::sendPendingData()
     m_pendingData.clear();
 }
 
-void MqttsnClientFilter::sendDataInternal(const unsigned char* buf, unsigned bufLen, [[maybe_unused]] unsigned broadcastRadius)
+void MqttsnClientFilter::sendDataInternal(const unsigned char* buf, unsigned bufLen, unsigned broadcastRadius)
 {
     if (3 <= getDebugOutputLevel()) {
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): sending " << bufLen << " bytes" << std::endl;
@@ -735,6 +735,14 @@ void MqttsnClientFilter::sendDataInternal(const unsigned char* buf, unsigned buf
     }
 
     dataInfo->m_extraProperties = m_sendDataPtr->m_extraProperties;
+    if (broadcastRadius != 0) {
+        static const QString BroadcastProp("network.broadcast");
+        static const QString BroadcastRadiusProp("network.broadcast_radius");
+
+        dataInfo->m_extraProperties[BroadcastProp] = true;
+        dataInfo->m_extraProperties[BroadcastRadiusProp] = broadcastRadius;
+    }
+
     m_sendData.append(std::move(dataInfo));
 }
 

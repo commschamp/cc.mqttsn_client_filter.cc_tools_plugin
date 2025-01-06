@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <cc_tools_qt/Filter.h>
+#include <cc_tools_qt/ToolsFilter.h>
 #include <cc_tools_qt/version.h>
 
 #include <cc_mqttsn_client/client.h>
@@ -32,13 +32,13 @@
 #include <memory>
 #include <string>
 
-static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 4) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
-static_assert(CC_TOOLS_QT_MAKE_VERSION(5, 3, 3) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
+static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 7) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
+static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 0) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
 
 namespace cc_plugin_mqttsn_client_filter
 {
 
-class MqttsnClientFilter final : public QObject, public cc_tools_qt::Filter
+class MqttsnClientFilter final : public cc_tools_qt::ToolsFilter
 {
     Q_OBJECT
 
@@ -85,8 +85,8 @@ signals:
 protected:
     virtual bool startImpl() override;
     virtual void stopImpl() override;
-    virtual QList<cc_tools_qt::DataInfoPtr> recvDataImpl(cc_tools_qt::DataInfoPtr dataPtr) override;
-    virtual QList<cc_tools_qt::DataInfoPtr> sendDataImpl(cc_tools_qt::DataInfoPtr dataPtr) override;
+    virtual QList<cc_tools_qt::ToolsDataInfoPtr> recvDataImpl(cc_tools_qt::ToolsDataInfoPtr dataPtr) override;
+    virtual QList<cc_tools_qt::ToolsDataInfoPtr> sendDataImpl(cc_tools_qt::ToolsDataInfoPtr dataPtr) override;
     virtual void socketConnectionReportImpl(bool connected) override;
     virtual void applyInterPluginConfigImpl(const QVariantMap& props) override;     
     virtual const char* debugNameImpl() const override;
@@ -132,15 +132,15 @@ private:
 
     ClientPtr m_client;
     QTimer m_timer;
-    std::list<cc_tools_qt::DataInfoPtr> m_pendingData;
+    std::list<cc_tools_qt::ToolsDataInfoPtr> m_pendingData;
     Config m_config;
     std::string m_prevClientId;
     unsigned m_tickMs = 0U;
     qint64 m_tickMeasureTs = 0;
-    cc_tools_qt::DataInfoPtr m_recvDataPtr;
-    QList<cc_tools_qt::DataInfoPtr> m_recvData;
-    cc_tools_qt::DataInfoPtr m_sendDataPtr;
-    QList<cc_tools_qt::DataInfoPtr> m_sendData;
+    cc_tools_qt::ToolsDataInfoPtr m_recvDataPtr;
+    QList<cc_tools_qt::ToolsDataInfoPtr> m_recvData;
+    cc_tools_qt::ToolsDataInfoPtr m_sendDataPtr;
+    QList<cc_tools_qt::ToolsDataInfoPtr> m_sendData;
     bool m_firstConnect = true;
     bool m_socketConnected = false;
     bool m_cleanSession = false;

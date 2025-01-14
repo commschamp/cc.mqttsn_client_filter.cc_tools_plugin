@@ -108,24 +108,9 @@ void getListFromConfigMap(const QVariantMap& subConfig, const QString& key, T& l
 } // namespace 
     
 
-MqttsnClientFilterPlugin::MqttsnClientFilterPlugin()
+MqttsnClientFilterPlugin::MqttsnClientFilterPlugin() :
+    Base(Type_Filter)
 {
-    pluginProperties()
-        .setFiltersCreateFunc(
-            [this]()
-            {
-                createFilterIfNeeded();
-                cc_tools_qt::PluginProperties::ListOfFilters result;
-                result.append(m_filter);
-                return result;
-            })
-        .setConfigWidgetCreateFunc(
-            [this]()
-            {
-                createFilterIfNeeded();
-                return new MqttsnClientFilterConfigWidget(*m_filter);
-            })            
-        ;
 }
 
 MqttsnClientFilterPlugin::~MqttsnClientFilterPlugin() noexcept = default;
@@ -184,6 +169,18 @@ void MqttsnClientFilterPlugin::createFilterIfNeeded()
     }
 
     m_filter = makeMqttsnClientFilter();
+}
+
+cc_tools_qt::ToolsFilterPtr MqttsnClientFilterPlugin::createFilterImpl()
+{
+    createFilterIfNeeded();
+    return m_filter;
+}
+
+QWidget* MqttsnClientFilterPlugin::createConfigurationWidgetImpl()
+{
+    createFilterIfNeeded();
+    return new MqttsnClientFilterConfigWidget(*m_filter);
 }
 
 }  // namespace cc_plugin_mqttsn_client_filter

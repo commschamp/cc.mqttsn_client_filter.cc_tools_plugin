@@ -212,7 +212,8 @@ void MqttsnClientFilterConfigWidget::addSubscribeWidget(SubConfig& config)
         [this](QObject*)
         {
             refreshSubscribes();
-        });
+        },
+        Qt::QueuedConnection);
 
     auto* subsLayout = qobject_cast<QVBoxLayout*>(m_ui.m_subsWidget->layout());
     assert(subsLayout != nullptr);

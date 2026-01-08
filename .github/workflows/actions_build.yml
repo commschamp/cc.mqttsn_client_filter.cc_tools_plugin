@@ -8,10 +8,10 @@ on:
       - '**'
 
 env:
-  COMMS_TAG: v5.4.2
-  CC_TOOLS_QT_TAG: v6.0.2
-  CC_MQTTSN_GENERATED_TAG: v3.0.3
-  CC_MQTTSN_LIBS_TAG: v2.0.10
+  COMMS_TAG: v5.5
+  CC_TOOLS_QT_TAG: v6.0.6
+  CC_MQTTSN_GENERATED_TAG: v3.0.5
+  CC_MQTTSN_LIBS_TAG: develop
 
 jobs:
 

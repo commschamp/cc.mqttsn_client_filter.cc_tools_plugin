@@ -77,10 +77,10 @@ if exist %COMMS_SRC_DIR%/.git (
     echo "Updating COMMS library..."
     cd "%COMMS_SRC_DIR%"
     git fetch --all
-    git checkout .    
+    git checkout .
     git checkout %COMMS_TAG%
     git pull --all
-    if %errorlevel% neq 0 exit /b %errorlevel%    
+    if %errorlevel% neq 0 exit /b %errorlevel%
 ) else (
     echo "Cloning COMMS library..."
     git clone -b %COMMS_TAG% %COMMS_REPO% %COMMS_SRC_DIR%
@@ -102,9 +102,9 @@ if exist %CC_TOOLS_QT_SRC_DIR%/.git (
     echo "Updating cc_tools_qt..."
     cd %CC_TOOLS_QT_SRC_DIR%
     git fetch --all
-    git checkout .    
+    git checkout .
     git checkout %CC_TOOLS_QT_TAG%
-    git pull --all    
+    git pull --all
 ) else (
     echo "Cloning cc_tools_qt ..."
     git clone -b %CC_TOOLS_QT_TAG% %CC_TOOLS_QT_REPO% %CC_TOOLS_QT_SRC_DIR%
@@ -158,7 +158,7 @@ if exist %CC_MQTTSN_LIBS_SRC_DIR%/.git (
     git clone -b %CC_MQTTSN_LIBS_TAG% %CC_MQTTSN_LIBS_REPO% %CC_MQTTSN_LIBS_SRC_DIR%
     if %errorlevel% neq 0 exit /b %errorlevel%
 )
-    
+
 echo "Building cc.mqttsn.libs ..."
 mkdir "%CC_MQTTSN_LIBS_BUILD_DIR%"
 cd %CC_MQTTSN_LIBS_BUILD_DIR%

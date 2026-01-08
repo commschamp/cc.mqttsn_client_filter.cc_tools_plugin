@@ -2,7 +2,7 @@
 This project is a member of the [CommsChampion Ecosystem](https://commschamp.github.io/) and implements
 **MQTT-SN Client Filter** plugin for the [CommsChampion Tools](https://github.com/commschamp/cc_tools_qt). It
 allows observation and debugging of the custom protocol messages exchanged using
-[MQTT-SN](https://www.oasis-open.org/committees/download.php/66091/MQTT-SN_spec_v1.2.pdf) as the 
+[MQTT-SN](https://www.oasis-open.org/committees/download.php/66091/MQTT-SN_spec_v1.2.pdf) as the
 intermediate transport protocol in the common
 environment of the [CommsChampion Tools](https://github.com/commschamp/cc_tools_qt).
 Please read the [wiki page](https://github.com/commschamp/cc.mqttsn_client_filter.cc_tools_plugin/wiki) for the instructions on
@@ -27,16 +27,16 @@ This project has the following direct and transitive external dependencies:
 - [Qt](https://www.qt.io/) (**direct** dependency) - Qt5/6 libraries.
 
 
-All these dependencies are expected to be built externally and installation paths to the primary dependencies are 
+All these dependencies are expected to be built externally and installation paths to the primary dependencies are
 expected to be passed to the `cmake` invocation
-using the **CMAKE_PREFIX_PATH** configuration variable. Also the installation directory is expected to be the same as 
+using the **CMAKE_PREFIX_PATH** configuration variable. Also the installation directory is expected to be the same as
 the one used to install the [CommsChampion Tools](https://github.com/commschamp/cc_tools_qt).
 ```
 cmake -DCMAKE_INSTALL_PREFIX=/path/to/cc_tools_qt/install \
     -DCMAKE_PREFIX_PATH=/path/to/comms/install\;/path/to/cc_tools_qt/install\;/path/to/cc.mqttsn.libs/install ...
 ```
 
-There are [prepare_externals.sh](script/prepare_externals.sh) (for Linux) and 
+There are [prepare_externals.sh](script/prepare_externals.sh) (for Linux) and
 [prepare_externals.bat](script/prepare_externals.bat) (for Windows)
 scripts that can be used to pull and build all the required dependencies (excluding the [Qt](https://www.qt.io/) libraries).
 

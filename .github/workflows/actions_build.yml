@@ -249,7 +249,6 @@ jobs:
         COMMON_QT_VER: ${{matrix.qt_ver}}
         COMMS_TAG: ${{env.COMMS_TAG}}
         CC_TOOLS_QT_TAG: ${{env.CC_TOOLS_QT_TAG}}
-        CC_TOOLS_QT_MAJOR_QT_VERSION: ${{matrix.qt_ver}}
         CC_MQTTSN_GENERATED_TAG: ${{env.CC_MQTTSN_GENERATED_TAG}}
         CC_MQTTSN_LIBS_TAG: ${{env.CC_MQTTSN_LIBS_TAG}}
 
@@ -308,7 +307,6 @@ jobs:
         COMMON_QT_VER: ${{matrix.qt_ver}}
         COMMS_TAG: ${{env.COMMS_TAG}}
         CC_TOOLS_QT_TAG: ${{env.CC_TOOLS_QT_TAG}}
-        CC_TOOLS_QT_MAJOR_QT_VERSION: ${{matrix.qt_ver}}
         CC_MQTTSN_GENERATED_TAG: ${{env.CC_MQTTSN_GENERATED_TAG}}
         CC_MQTTSN_LIBS_TAG: ${{env.CC_MQTTSN_LIBS_TAG}}
 

@@ -1,5 +1,5 @@
 //
-// Copyright 2024 - 2025 (C). Alex Robenko. All rights reserved.
+// Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
 
 // This file is free software: you can redistribute it and/or modify
@@ -32,8 +32,8 @@
 #include <memory>
 #include <string>
 
-static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 10) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
-static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 2) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
+static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 11) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
+static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 6) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
 
 namespace cc_plugin_mqttsn_client_filter
 {

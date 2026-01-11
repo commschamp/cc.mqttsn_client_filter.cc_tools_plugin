@@ -21,7 +21,7 @@ This project has the following direct and transitive external dependencies:
 
 - [COMMS Library](https://github.com/commschamp/comms) (**direct** dependency) - Primary library for any protocol definition, some inner cmake scripts are re-used in the build.
 - [cc.mqttsn.generated](https://github.com/commschamp/cc.mqttsn.generated) (**transitive** dependency) - Definition of the MQTT-SN protocol (depends on the [COMMS Library](https://github.com/commschamp/comms)).
-- [cc.mqttsn.libs](https://github.com/commschamp/cc.mqttsn.generated) (**direct** dependency) - MQTT-SN client library (depends on the
+- [cc.mqttsn.libs](https://github.com/commschamp/cc.mqttsn.libs) (**direct** dependency) - MQTT-SN client library (depends on the
 [COMMS Library](https://github.com/commschamp/comms) and the [cc.mqttsn.generated](https://github.com/commschamp/cc.mqttsn.generated)).
 - [CommsChampion Tools](https://github.com/commschamp/cc.mqttsn.generated) (**direct** dependency) - CommsChampion Tools and its library required for the plugin development.
 - [Qt](https://www.qt.io/) (**direct** dependency) - Qt5/6 libraries.

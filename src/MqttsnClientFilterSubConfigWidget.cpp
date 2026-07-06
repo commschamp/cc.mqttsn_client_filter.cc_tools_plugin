@@ -1,7 +1,8 @@
 //
 // Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
-
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // This file is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +16,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #include "MqttsnClientFilterSubConfigWidget.h"
 
 #include <algorithm>
@@ -23,7 +23,7 @@
 namespace cc_plugin_mqttsn_client_filter
 {
 
-MqttsnClientFilterSubConfigWidget::MqttsnClientFilterSubConfigWidget(MqttsnClientFilter& filter, SubConfig& config, QWidget* parentObj) : 
+MqttsnClientFilterSubConfigWidget::MqttsnClientFilterSubConfigWidget(MqttsnClientFilter& filter, SubConfig& config, QWidget* parentObj) :
     Base(parentObj),
     m_filter(filter),
     m_config(config)
@@ -39,19 +39,19 @@ MqttsnClientFilterSubConfigWidget::MqttsnClientFilterSubConfigWidget(MqttsnClien
 
     connect(
         m_ui.m_topicLineEdit, &QLineEdit::textChanged,
-        this, &MqttsnClientFilterSubConfigWidget::topicUpdated);   
+        this, &MqttsnClientFilterSubConfigWidget::topicUpdated);
 
     connect(
         m_ui.m_topicIdSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterSubConfigWidget::topicIdUpdated);          
+        this, &MqttsnClientFilterSubConfigWidget::topicIdUpdated);
 
     connect(
         m_ui.m_maxQosSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterSubConfigWidget::maxQosUpdated);  
+        this, &MqttsnClientFilterSubConfigWidget::maxQosUpdated);
 
     connect(
         m_ui.m_delToolButton, &QToolButton::clicked,
-        this, &MqttsnClientFilterSubConfigWidget::delClicked);           
+        this, &MqttsnClientFilterSubConfigWidget::delClicked);
 }
 
 void MqttsnClientFilterSubConfigWidget::topicUpdated(const QString& val)
@@ -77,9 +77,9 @@ void MqttsnClientFilterSubConfigWidget::maxQosUpdated(int val)
 void MqttsnClientFilterSubConfigWidget::delClicked([[maybe_unused]] bool checked)
 {
     auto& subs = m_filter.config().m_subscribes;
-    auto iter = 
+    auto iter =
         std::find_if(
-            subs.begin(), subs.end(), 
+            subs.begin(), subs.end(),
             [this](auto& info)
             {
                 return &m_config == &info;
@@ -118,7 +118,5 @@ void MqttsnClientFilterSubConfigWidget::refresh()
     m_ui.m_topicIdSpinBox->setEnabled(true);
 }
 
-
 }  // namespace cc_plugin_mqttsn_client_filter
-
 

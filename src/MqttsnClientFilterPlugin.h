@@ -1,7 +1,8 @@
 //
 // Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
-
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // This file is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +15,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 
 #pragma once
 
@@ -40,9 +40,9 @@ public:
 protected:
     virtual void getCurrentConfigImpl(QVariantMap& config) override;
     virtual void reconfigureImpl(const QVariantMap& config) override;
-    virtual void applyInterPluginConfigImpl(const QVariantMap& props) override;     
+    virtual void applyInterPluginConfigImpl(const QVariantMap& props) override;
     virtual cc_tools_qt::ToolsFilterPtr createFilterImpl() override;
-    virtual QWidget* createConfigurationWidgetImpl() override;    
+    virtual QWidget* createConfigurationWidgetImpl() override;
 
 private:
     void createFilterIfNeeded();
@@ -50,7 +50,4 @@ private:
 };
 
 }  // namespace cc_plugin_mqttsn_client_filter
-
-
-
 

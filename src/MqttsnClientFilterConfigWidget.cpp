@@ -1,7 +1,8 @@
 //
 // Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
-
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // This file is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +27,7 @@
 namespace cc_plugin_mqttsn_client_filter
 {
 
-namespace 
+namespace
 {
 
 void deleteAllWidgetsFrom(QLayout& layout)
@@ -42,8 +43,7 @@ void deleteAllWidgetsFrom(QLayout& layout)
     }
 }
 
-} // namespace 
-    
+} // namespace
 
 MqttsnClientFilterConfigWidget::MqttsnClientFilterConfigWidget(MqttsnClientFilter& filter, QWidget* parentObj) :
     Base(parentObj),
@@ -58,15 +58,15 @@ MqttsnClientFilterConfigWidget::MqttsnClientFilterConfigWidget(MqttsnClientFilte
 
     connect(
         &m_filter, &MqttsnClientFilter::sigConfigChanged,
-        this, &MqttsnClientFilterConfigWidget::refresh);     
+        this, &MqttsnClientFilterConfigWidget::refresh);
 
     connect(
         m_ui.m_retryPeriodSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterConfigWidget::retryPeriodUpdated); 
+        this, &MqttsnClientFilterConfigWidget::retryPeriodUpdated);
 
     connect(
         m_ui.m_retryCountSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterConfigWidget::retryCountUpdated);             
+        this, &MqttsnClientFilterConfigWidget::retryCountUpdated);
 
     connect(
         m_ui.m_clientIdLineEdit, &QLineEdit::textChanged,
@@ -74,27 +74,27 @@ MqttsnClientFilterConfigWidget::MqttsnClientFilterConfigWidget(MqttsnClientFilte
 
     connect(
         m_ui.m_keepAliveSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterConfigWidget::keepAliveUpdated);    
+        this, &MqttsnClientFilterConfigWidget::keepAliveUpdated);
 
     connect(
         m_ui.m_cleanSessionComboBox, qOverload<int>(&QComboBox::currentIndexChanged),
-        this, &MqttsnClientFilterConfigWidget::forcedCleanSessionUpdated);           
+        this, &MqttsnClientFilterConfigWidget::forcedCleanSessionUpdated);
 
     connect(
         m_ui.m_pubTopicLineEdit, &QLineEdit::textChanged,
-        this, &MqttsnClientFilterConfigWidget::pubTopicUpdated);       
+        this, &MqttsnClientFilterConfigWidget::pubTopicUpdated);
 
     connect(
         m_ui.m_pubTopicIdSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterConfigWidget::pubTopicIdUpdated);           
+        this, &MqttsnClientFilterConfigWidget::pubTopicIdUpdated);
 
     connect(
         m_ui.m_pubQosSpinBox, qOverload<int>(&QSpinBox::valueChanged),
-        this, &MqttsnClientFilterConfigWidget::pubQosUpdated);   
+        this, &MqttsnClientFilterConfigWidget::pubQosUpdated);
 
     connect(
         m_ui.m_addSubPushButton, &QPushButton::clicked,
-        this, &MqttsnClientFilterConfigWidget::addSubscribe);           
+        this, &MqttsnClientFilterConfigWidget::addSubscribe);
 }
 
 MqttsnClientFilterConfigWidget::~MqttsnClientFilterConfigWidget() noexcept = default;
@@ -105,7 +105,7 @@ void MqttsnClientFilterConfigWidget::refresh()
 
     for (auto& subConfig : m_filter.config().m_subscribes) {
         addSubscribeWidget(subConfig);
-    }    
+    }
 
     m_ui.m_retryPeriodSpinBox->setValue(static_cast<int>(m_filter.config().m_retryPeriod));
     m_ui.m_retryCountSpinBox->setValue(static_cast<int>(m_filter.config().m_retryCount));
@@ -217,9 +217,8 @@ void MqttsnClientFilterConfigWidget::addSubscribeWidget(SubConfig& config)
 
     auto* subsLayout = qobject_cast<QVBoxLayout*>(m_ui.m_subsWidget->layout());
     assert(subsLayout != nullptr);
-    subsLayout->addWidget(widget); 
+    subsLayout->addWidget(widget);
 }
 
 }  // namespace cc_plugin_mqttsn_client_filter
-
 

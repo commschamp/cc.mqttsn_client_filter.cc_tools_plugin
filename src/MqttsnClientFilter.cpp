@@ -1,7 +1,8 @@
 //
 // Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
-
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // This file is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +33,7 @@
 namespace cc_plugin_mqttsn_client_filter
 {
 
-namespace 
+namespace
 {
 
 inline MqttsnClientFilter* asThis(void* data)
@@ -73,91 +74,91 @@ const QString& aliasQosProp()
 const QString& retainedProp()
 {
     static const QString Str("mqttsn.retained");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasRetainedProp()
 {
     static const QString Str("mqtt.retained");
-    return Str;    
+    return Str;
 }
 
 const QString& clientProp()
 {
     static const QString Str("mqttsn.client");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasClientProp()
 {
     static const QString Str("mqtt.client");
-    return Str;    
+    return Str;
 }
 
 const QString& pubTopicProp()
 {
     static const QString Str("mqttsn.pub_topic");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasPubTopicProp()
 {
     static const QString Str("mqtt.pub_topic");
-    return Str;    
+    return Str;
 }
 
 const QString& pubTopicIdProp()
 {
     static const QString Str("mqttsn.pub_topic_id");
-    return Str;    
+    return Str;
 }
 
 const QString& pubQosProp()
 {
     static const QString Str("mqttsn.pub_qos");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasPubQosProp()
 {
     static const QString Str("mqtt.pub_qos");
-    return Str;    
+    return Str;
 }
 
 const QString& subscribesProp()
 {
     static const QString Str("mqttsn.subscribes");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasSubscribesProp()
 {
     static const QString Str("mqtt.subscribes");
-    return Str;    
+    return Str;
 }
 
 const QString& subscribesRemoveProp()
 {
     static const QString Str("mqttsn.subscribes_remove");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasSubscribesRemoveProp()
 {
     static const QString Str("mqtt.subscribes_remove");
-    return Str;    
+    return Str;
 }
 
 const QString& subscribesClearProp()
 {
     static const QString Str("mqttsn.subscribes_clear");
-    return Str;    
+    return Str;
 }
 
 const QString& aliasSubscribesClearProp()
 {
     static const QString Str("mqtt.subscribes_clear");
-    return Str;    
+    return Str;
 }
 
 const QString& topicSubProp()
@@ -189,7 +190,7 @@ unsigned getOutgoingTopicId(const QVariantMap& props, unsigned configVal)
 {
     if (props.contains(topicIdProp())) {
         return props[topicIdProp()].value<unsigned>();
-    }    
+    }
 
     return configVal;
 }
@@ -215,7 +216,7 @@ bool getOutgoingRetained(const QVariantMap& props)
 
     if (props.contains(aliasRetainedProp())) {
         return props[aliasRetainedProp()].value<bool>();
-    }    
+    }
 
     return false;
 }
@@ -309,11 +310,10 @@ const QString& disconnectReasonStr(CC_MqttsnGatewayDisconnectReason value)
         return UnknownStr;
     }
 
-    return Map[idx];    
+    return Map[idx];
 }
 
-} // namespace 
-    
+} // namespace
 
 MqttsnClientFilter::MqttsnClientFilter() :
     m_client(::cc_mqttsn_client_alloc())
@@ -342,15 +342,15 @@ bool MqttsnClientFilter::startImpl()
     if (ec != CC_MqttsnErrorCode_Success) {
         reportError(tr("Failed to update MQTT-SN default retry period"));
         return false;
-    }  
+    }
 
     ec = ::cc_mqttsn_client_set_default_retry_count(m_client.get(), m_config.m_retryCount);
     if (ec != CC_MqttsnErrorCode_Success) {
         reportError(tr("Failed to update MQTT-SN default retry count"));
         return false;
-    }      
+    }
 
-    return true; 
+    return true;
 }
 
 void MqttsnClientFilter::stopImpl()
@@ -363,7 +363,7 @@ void MqttsnClientFilter::stopImpl()
     if (ec != CC_MqttsnErrorCode_Success) {
         reportError(tr("Failed to send disconnect with error: ") + errorCodeStr(ec));
         return;
-    }    
+    }
 }
 
 QList<cc_tools_qt::ToolsDataInfoPtr> MqttsnClientFilter::recvDataImpl(cc_tools_qt::ToolsDataInfoPtr dataPtr)
@@ -395,9 +395,9 @@ QList<cc_tools_qt::ToolsDataInfoPtr> MqttsnClientFilter::sendDataImpl(cc_tools_q
 
     if (topic.empty() && (topicId == 0U)) {
         topic = getOutgoingTopic(props, m_config.m_pubTopic);
-        topicId = getOutgoingTopicId(props, m_config.m_pubTopicId);        
+        topicId = getOutgoingTopicId(props, m_config.m_pubTopicId);
     }
-    
+
     auto qos = getOutgoingQos(props, m_config.m_pubQos);
     props[qosProp()] = qos;
 
@@ -406,7 +406,7 @@ QList<cc_tools_qt::ToolsDataInfoPtr> MqttsnClientFilter::sendDataImpl(cc_tools_q
 
     if (2 <= getDebugOutputLevel()) {
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): publish: " << topic << std::endl;
-    }    
+    }
 
     auto config = CC_MqttsnPublishConfig();
     ::cc_mqttsn_client_publish_init_config(&config);
@@ -421,20 +421,20 @@ QList<cc_tools_qt::ToolsDataInfoPtr> MqttsnClientFilter::sendDataImpl(cc_tools_q
     }
     config.m_data = dataPtr->m_data.data();
     config.m_dataLen = static_cast<decltype(config.m_dataLen)>(dataPtr->m_data.size());
-    config.m_qos = static_cast<decltype(config.m_qos)>(qos);    
+    config.m_qos = static_cast<decltype(config.m_qos)>(qos);
     config.m_retain = retained;
 
     m_sendDataPtr = std::move(dataPtr);
 
     if (2 <= getDebugOutputLevel()) {
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): initiating publish" << std::endl;
-    }    
+    }
 
     auto ec = ::cc_mqttsn_client_publish(m_client.get(), &config, &MqttsnClientFilter::publishCompleteCb, this);
     if (ec != CC_MqttsnErrorCode_Success) {
         reportError(tr("Failed to send MQTTSN publish with error: ") + errorCodeStr(ec));
         m_sendDataPtr.reset();
-        return m_sendData;        
+        return m_sendData;
     }
 
     m_sendDataPtr.reset();
@@ -490,8 +490,8 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
                 }
                 updated = true;
             }
-        }  
-    }  
+        }
+    }
 
     {
         static const QString* PubTopicIdProps[] = {
@@ -507,8 +507,8 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
                 }
                 updated = true;
             }
-        }  
-    }      
+        }
+    }
 
     {
         static const QString* PubQosProps[] = {
@@ -522,8 +522,8 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
                 m_config.m_pubQos = var.value<int>();
                 updated = true;
             }
-        }  
-    }  
+        }
+    }
 
     {
         static const QString* SubscribesRemoveProps[] = {
@@ -553,22 +553,22 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
 
                 auto topic = topicVar.value<QString>();
 
-                auto iter = 
+                auto iter =
                     std::find_if(
                         m_config.m_subscribes.begin(), m_config.m_subscribes.end(),
                         [&topic](const auto& info)
                         {
                             return topic == info.m_topic;
                         });
-                
+
                 if (iter != m_config.m_subscribes.end()) {
                     m_config.m_subscribes.erase(iter);
                     updated = true;
-                    forceCleanSession();                    
+                    forceCleanSession();
                 }
             }
-        }  
-    }  
+        }
+    }
 
     {
         static const QString* SubscribesClearProps[] = {
@@ -588,8 +588,8 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
 
             m_config.m_subscribes.clear();
             updated = true;
-        }  
-    }           
+        }
+    }
 
     {
         static const QString* SubscribesProps[] = {
@@ -619,14 +619,14 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
 
                 auto topic = topicVar.value<QString>();
 
-                auto iter = 
+                auto iter =
                     std::find_if(
                         m_config.m_subscribes.begin(), m_config.m_subscribes.end(),
                         [&topic](const auto& info)
                         {
                             return topic == info.m_topic;
                         });
-                
+
                 if (iter == m_config.m_subscribes.end()) {
                     iter = m_config.m_subscribes.insert(m_config.m_subscribes.end(), SubConfig());
                     iter->m_topic = topic;
@@ -638,11 +638,11 @@ void MqttsnClientFilter::applyInterPluginConfigImpl(const QVariantMap& props)
                     subConfig.m_maxQos = qosVar.value<int>();
                 }
             }
-            
+
             updated = true;
             forceCleanSession();
-        }  
-    }              
+        }
+    }
 
     if (updated) {
         emit sigConfigChanged();
@@ -672,35 +672,35 @@ void MqttsnClientFilter::socketConnected()
     if (2 <= getDebugOutputLevel()) {
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): socket connected report" << std::endl;
     }
-        
+
     auto config = CC_MqttsnConnectConfig();
     ::cc_mqttsn_client_connect_init_config(&config);
 
     auto clientId = m_config.m_clientId.toStdString();
-    
+
     if (!clientId.empty()) {
         config.m_clientId = clientId.c_str();
     }
 
     config.m_duration = m_config.m_keepAlive;
-    config.m_cleanSession = 
+    config.m_cleanSession =
         (m_config.m_forcedCleanSession) ||
-        (clientId.empty()) || 
+        (clientId.empty()) ||
         (clientId != m_prevClientId) ||
         (m_firstConnect);
 
-    auto ec = 
+    auto ec =
         cc_mqttsn_client_connect(
-            m_client.get(), 
-            &config, 
-            nullptr, 
-            &MqttsnClientFilter::connectCompleteCb, 
+            m_client.get(),
+            &config,
+            nullptr,
+            &MqttsnClientFilter::connectCompleteCb,
             this);
 
     if (ec != CC_MqttsnErrorCode_Success) {
         reportError(tr("Failed to initiate MQTT-SN connection"));
         return;
-    }    
+    }
 
     m_prevClientId = clientId;
     m_cleanSession = config.m_cleanSession;
@@ -752,7 +752,7 @@ void MqttsnClientFilter::gwDisconnectedInternal(CC_MqttsnGatewayDisconnectReason
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): gateway disconnected: " <<  disconnectReasonStr(reason).toStdString() << std::endl;
     }
 
-    auto gatewayDisconnecteError = 
+    auto gatewayDisconnecteError =
         tr("MQTTSN gateway is disconnected with reason: ") + disconnectReasonStr(reason);
 
     reportError(gatewayDisconnecteError);
@@ -804,7 +804,7 @@ unsigned MqttsnClientFilter::cancelTickProgramInternal()
     if (3 <= getDebugOutputLevel()) {
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): cancel tick: " << diff << std::endl;
     }
-        
+
     return static_cast<unsigned>(diff);
 }
 
@@ -818,7 +818,7 @@ void MqttsnClientFilter::connectCompleteInternal(CC_MqttsnAsyncOpStatus status, 
     assert(info != nullptr);
     if (info->m_returnCode != CC_MqttsnReturnCode_Accepted) {
         reportError(tr("MQTT gateway rejected connection with return code: ") + returnCodeStr(info->m_returnCode));
-        return;        
+        return;
     }
 
     m_firstConnect = false;
@@ -848,7 +848,7 @@ void MqttsnClientFilter::connectCompleteInternal(CC_MqttsnAsyncOpStatus status, 
         if (ec != CC_MqttsnErrorCode_Success) {
             reportError(tr("Failed to send MQTTSN SUBSCRIBE message for topic: ") + config.m_topic);
             continue;
-        }         
+        }
     }
 }
 
@@ -857,7 +857,7 @@ void MqttsnClientFilter::subscribeCompleteInternal([[maybe_unused]] CC_MqttsnSub
     if (status != CC_MqttsnAsyncOpStatus_Complete) {
         reportError(tr("Failed to subsribe to MQTTSN topic with status: ") + statusStr(status));
         return;
-    }  
+    }
 
     assert (info != nullptr);
     if (info->m_returnCode != CC_MqttsnReturnCode_Accepted) {
@@ -869,7 +869,7 @@ void MqttsnClientFilter::publishCompleteInternal([[maybe_unused]] CC_MqttsnPubli
 {
     if (2 <= getDebugOutputLevel()) {
         std::cout << '[' << currTimestamp() << "] (" << debugNameImpl() << "): publish complete with status: " << statusStr(status).toStdString() << std::endl;
-    }  
+    }
 
     if (status != CC_MqttsnAsyncOpStatus_Complete) {
         reportError(tr("Failed to publish to MQTTSN gateway with status: ") + statusStr(status));
@@ -878,7 +878,7 @@ void MqttsnClientFilter::publishCompleteInternal([[maybe_unused]] CC_MqttsnPubli
 
     if ((info != nullptr) && (info->m_returnCode != CC_MqttsnReturnCode_Accepted)) {
         reportError(tr("Publish rejected with return code: ") + returnCodeStr(info->m_returnCode));
-        return;        
+        return;
     }
 }
 
@@ -940,5 +940,4 @@ void MqttsnClientFilter::publishCompleteCb(void* data, CC_MqttsnPublishHandle ha
 }
 
 }  // namespace cc_plugin_mqttsn_client_filter
-
 

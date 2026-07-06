@@ -18,7 +18,7 @@
         "        {\n",
         "            \"topic\": \"some/topic\" - Subscribe topic.\n",
         "        }, {...}",
-        "    ] } - Remove subscribes\n",        
+        "    ] } - Remove subscribes\n",
         "    { \"mqttsn.subscribes_clear\": true } - Clear all subscribes.\n",
         "    { \"mqtt.client\": \"client_id\" } - Alias to \"mqttsn.client\".\n",
         "    { \"mqtt.pub_topic\": \"pub_topic\" } - Alias to \"mqttsn.pub_topic\".\n",
@@ -37,5 +37,5 @@
         "    { \"mqtt.retained\": true } - Alias to \"mqttsn.retained\".\n"
     ],
     "type" : "filter",
-    "version" : "v1.0.4"
+    "version" : "v1.0.5"
 }

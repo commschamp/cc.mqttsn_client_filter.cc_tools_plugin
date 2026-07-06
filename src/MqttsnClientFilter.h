@@ -1,7 +1,8 @@
 //
 // Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
-
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // This file is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +15,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 
 #pragma once
 
@@ -32,8 +32,8 @@
 #include <memory>
 #include <string>
 
-static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 11) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
-static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 6) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
+static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 12) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
+static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 8) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
 
 namespace cc_plugin_mqttsn_client_filter
 {
@@ -51,7 +51,7 @@ public:
     };
 
     // erase the element mustn't invalidate references to other elements, using list.
-    using SubConfigsList = std::list<SubConfig>; 
+    using SubConfigsList = std::list<SubConfig>;
 
     struct Config
     {
@@ -80,7 +80,7 @@ public:
     }
 
 signals:
-    void sigConfigChanged();    
+    void sigConfigChanged();
 
 protected:
     virtual bool startImpl() override;
@@ -88,7 +88,7 @@ protected:
     virtual QList<cc_tools_qt::ToolsDataInfoPtr> recvDataImpl(cc_tools_qt::ToolsDataInfoPtr dataPtr) override;
     virtual QList<cc_tools_qt::ToolsDataInfoPtr> sendDataImpl(cc_tools_qt::ToolsDataInfoPtr dataPtr) override;
     virtual void socketConnectionReportImpl(bool connected) override;
-    virtual void applyInterPluginConfigImpl(const QVariantMap& props) override;     
+    virtual void applyInterPluginConfigImpl(const QVariantMap& props) override;
     virtual const char* debugNameImpl() const override;
 
 private slots:
@@ -102,7 +102,7 @@ private:
             ::cc_mqttsn_client_free(ptr);
         }
     };
-    
+
     using ClientPtr = std::unique_ptr<CC_MqttsnClient, ClientDeleter>;
 
     void socketConnected();
@@ -117,7 +117,6 @@ private:
     void connectCompleteInternal(CC_MqttsnAsyncOpStatus status, const CC_MqttsnConnectInfo* info);
     void subscribeCompleteInternal(CC_MqttsnSubscribeHandle handle, CC_MqttsnAsyncOpStatus status, const CC_MqttsnSubscribeInfo* info);
     void publishCompleteInternal(CC_MqttsnPublishHandle handle, CC_MqttsnAsyncOpStatus status, const CC_MqttsnPublishInfo* info);
-    
 
     static void sendDataCb(void* data, const unsigned char* buf, unsigned bufLen, unsigned broadcastRadius);
     static void gwDisconnectedCb(void* data, CC_MqttsnGatewayDisconnectReason reason);
@@ -155,5 +154,4 @@ MqttsnClientFilterPtr makeMqttsnClientFilter()
 }
 
 }  // namespace cc_plugin_mqttsn_client_filter
-
 

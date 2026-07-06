@@ -1,7 +1,8 @@
 //
 // Copyright 2024 - 2026 (C). Alex Robenko. All rights reserved.
 //
-
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // This file is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +28,7 @@
 namespace cc_plugin_mqttsn_client_filter
 {
 
-namespace 
+namespace
 {
 
 const QString MainConfigKey("cc_plugin_mqttsn_client_filter");
@@ -45,7 +46,6 @@ const QString SubTopicIdSubKey("sub_topic_id");
 const QString SubQosSubKey("sub_qos");
 const QString SubscribesSubKey("subscribes");
 
-
 template <typename T>
 void getFromConfigMap(const QVariantMap& subConfig, const QString& key, T& val)
 {
@@ -53,7 +53,7 @@ void getFromConfigMap(const QVariantMap& subConfig, const QString& key, T& val)
     auto var = subConfig.value(key);
     if (var.isValid() && var.canConvert<Type>()) {
         val = var.value<Type>();
-    }    
+    }
 }
 
 QVariantMap toVariantMap(const MqttsnClientFilter::SubConfig& config)
@@ -89,14 +89,14 @@ void getListFromConfigMap(const QVariantMap& subConfig, const QString& key, T& l
     auto var = subConfig.value(key);
     if ((!var.isValid()) || (!var.canConvert<QVariantList>())) {
         return;
-    }    
+    }
 
     auto varList = var.value<QVariantList>();
     for (auto& elemVar : varList) {
 
         if ((!elemVar.isValid()) || (!elemVar.canConvert<QVariantMap>())) {
             return;
-        }            
+        }
 
         auto varMap = elemVar.value<QVariantMap>();
 
@@ -105,8 +105,7 @@ void getListFromConfigMap(const QVariantMap& subConfig, const QString& key, T& l
     }
 }
 
-} // namespace 
-    
+} // namespace
 
 MqttsnClientFilterPlugin::MqttsnClientFilterPlugin() :
     Base(Type_Filter)
@@ -184,5 +183,4 @@ QWidget* MqttsnClientFilterPlugin::createConfigurationWidgetImpl()
 }
 
 }  // namespace cc_plugin_mqttsn_client_filter
-
 

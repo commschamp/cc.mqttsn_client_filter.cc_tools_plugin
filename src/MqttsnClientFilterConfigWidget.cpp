@@ -107,13 +107,13 @@ void MqttsnClientFilterConfigWidget::refresh()
         addSubscribeWidget(subConfig);
     }    
 
-    m_ui.m_retryPeriodSpinBox->setValue(m_filter.config().m_retryPeriod);
-    m_ui.m_retryCountSpinBox->setValue(m_filter.config().m_retryCount);
+    m_ui.m_retryPeriodSpinBox->setValue(static_cast<int>(m_filter.config().m_retryPeriod));
+    m_ui.m_retryCountSpinBox->setValue(static_cast<int>(m_filter.config().m_retryCount));
     m_ui.m_clientIdLineEdit->setText(m_filter.config().m_clientId);
     m_ui.m_keepAliveSpinBox->setValue(static_cast<int>(m_filter.config().m_keepAlive));
     m_ui.m_cleanSessionComboBox->setCurrentIndex(static_cast<int>(m_filter.config().m_forcedCleanSession));
     m_ui.m_pubTopicLineEdit->setText(m_filter.config().m_pubTopic);
-    m_ui.m_pubTopicIdSpinBox->setValue(m_filter.config().m_pubTopicId);
+    m_ui.m_pubTopicIdSpinBox->setValue(static_cast<int>(m_filter.config().m_pubTopicId));
     m_ui.m_pubQosSpinBox->setValue(m_filter.config().m_pubQos);
 
     refreshSubscribes();

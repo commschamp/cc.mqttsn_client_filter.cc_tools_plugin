@@ -8,10 +8,10 @@ on:
       - '**'
 
 env:
-  COMMS_TAG: v5.5.2
-  CC_TOOLS_QT_TAG: v6.0.8
-  CC_MQTTSN_GENERATED_TAG: v3.0.6
-  CC_MQTTSN_LIBS_TAG: v2.0.12
+  COMMS_TAG: v5.5.3
+  CC_TOOLS_QT_TAG: v6.0.9
+  CC_MQTTSN_GENERATED_TAG: v3.0.7
+  CC_MQTTSN_LIBS_TAG: v2.0.13
 
 jobs:
   build_gcc_ubuntu_24_04:

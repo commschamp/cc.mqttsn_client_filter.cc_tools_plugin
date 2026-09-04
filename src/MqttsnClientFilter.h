@@ -32,8 +32,8 @@
 #include <memory>
 #include <string>
 
-static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 12) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
-static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 8) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
+static_assert(CC_MQTTSN_CLIENT_MAKE_VERSION(2, 0, 13) <= CC_MQTTSN_CLIENT_VERSION, "The version of the cc_mqttsn_client library is too old");
+static_assert(CC_TOOLS_QT_MAKE_VERSION(6, 0, 9) <= CC_TOOLS_QT_VERSION, "The version of the cc_tools_qt library is too old");
 
 namespace cc_plugin_mqttsn_client_filter
 {
